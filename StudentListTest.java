@@ -11,10 +11,10 @@ public class StudentListTest {
         {
          BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 
-         String s=in.readLine();
-         String[] ok=s.split(" ");
+         String s = in.readLine();
+         String[] ok = s.split(" ");
          StudentList one;
-         one=new StudentList();
+         one=new StudentList(100);
          switch (Integer.parseInt(ok[0])) {
             case 1:
                 Student stu;
@@ -101,9 +101,9 @@ class Student {
 }
 class StudentList {
     private  int total=0;int pos;
-    private Student list[];
-    public int StudentList(int length){
-         return 0;
+    private Student[] list;
+    public StudentList(int length){
+         list = new Student[length];
     }
     public boolean add(Student stu){
         if(total==list.length)return false;
@@ -148,12 +148,12 @@ class StudentList {
         if (no>total)  System.out.println("No such student");
         else {
 
-            System.out.println("Number:" + list[no - 1].getStudentNumber());
-            System.out.println("Name:" + list[no - 1].getStudentName());
-            System.out.println("Math:" + list[no - 1].getMarkForMaths());
-            System.out.println("English:" + list[no - 1].getMarkForEnglish());
-            System.out.println("Science:" + list[no - 1].getMarkForScience());
-            System.out.printf("Ave:%.2f", list[no - 1].calculateAverage(list[no - 1].getMarkForMaths(), list[no - 1].getMarkForEnglish(), list[no - 1].getMarkForScience()));
+            System.out.println("Number:" + list[no].getStudentNumber());
+            System.out.println("Name:" + list[no].getStudentName());
+            System.out.println("Math:" + list[no].getMarkForMaths());
+            System.out.println("English:" + list[no].getMarkForEnglish());
+            System.out.println("Science:" + list[no].getMarkForScience());
+            System.out.printf("Ave:%.2f", list[no].calculateAverage(list[no].getMarkForMaths(), list[no].getMarkForEnglish(), list[no].getMarkForScience()));
         }
     }
     public void getItem(String number){
