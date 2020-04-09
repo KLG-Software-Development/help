@@ -4,25 +4,26 @@ import java.io.*;
 public class StudentListTest {
     public static void main (String[]args) throws IOException{
         int off = 1;
+        int c=0;
         StudentList one;
         one=new StudentList(100);
-        while (off!=0)
+        while(off!=0);
         {
          BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
          String s=in.readLine();
          String[] ok=s.split(" ");
-         switch (Integer.parseInt(ok[0])) {
-            case 1:System.out.println("#(input)#1"+" "+ok[1]+" "+ok[2]+" "+ok[3]+" "+ok[4]+" "+ok[5]);
+         switch (Integer.parseInt(ok[c++])) {
+            case 1:
                 Student stu;
-                stu = new Student(ok[1], ok[2]); stu.enterMarks( Integer.parseInt(ok[3]), Integer.parseInt(ok[4]), Integer.parseInt(ok[5]));
+                stu = new Student(ok[c++], ok[c++]); stu.enterMarks( Integer.parseInt(ok[c++]), Integer.parseInt(ok[c++]), Integer.parseInt(ok[c++]));
                 one.add(stu);System.out.println(one.getTotal()+" Students at the moment as described below:");
                 for(int i=1;i<one.getTotal()+1;i++){
                     one.getItem(i);
                 }
                 break;
-            case 2:System.out.println("#(input)#2"+" "+ok[1]);
-                one.remove(ok[1]);
-                if(one.remove(ok[1])){
+            case 2:
+                if(one.remove(ok[c++]))
+                {
                     System.out.println("Remove successfully");
                     System.out.println(one.getTotal()+" Students at the moment as described below:");
                     for(int i=1;i<one.getTotal()+1;i++)
@@ -31,31 +32,32 @@ public class StudentListTest {
                     }
                 }
                 break;
-            case 3:System.out.println("#(input)#3"+" "+ok[1]);
-                if(one.getTotal()<Integer.parseInt(ok[1]))System.out.println("No such student");
-                else {one.remove(Integer.parseInt(ok[1]));System.out.println("Remove successfully");System.out.println(one.getTotal()+" Students at the moment as described below:");
-                    for(int i=1;i<one.getTotal()+1;i++){
+            case 3:
+                if(one.getTotal()<Integer.parseInt(ok[c++]))System.out.println("No such student");
+                else { one.remove(Integer.parseInt(ok[c++]));System.out.println("Remove successfully");System.out.println(one.getTotal()+" Students at the moment as described below:");
+                    for(int i=1;i<one.getTotal()+1;i++)
+                    {
                         one.getItem(i);
                     }
                 }
                 break;
-            case 4:System.out.println("#(input)#4");
+            case 4:
                 one.isEmpty();
                 break;
-            case 5:System.out.println("#(input)#5"+" "+ok[1]);
-                if(Integer.parseInt(ok[1])<=one.getTotal()){System.out.println("Student Info:");}
-                one.getItem(Integer.parseInt(ok[1]));
+            case 5:
+                if(Integer.parseInt(ok[c])<=one.getTotal()){System.out.println("Student Info:");}
+                one.getItem(Integer.parseInt(ok[c]));c++;
 
                 break;
-            case 6:System.out.println("#(input)#6"+" "+ok[1]);
-                one.getItem(ok[1]);
+            case 6:
+                one.getItem(ok[c++]);
                 break;
-            case 7:System.out.println("#(input)#7");
+            case 7:if(one.getTotal()!=0){System.out.println(one.getTotal()+" Students at the moment as described below:");}
                 for (int i = 1; i < one.getTotal()+1; i++) {
                     one.getItem(i);
                 }
                 break;
-            case 8:System.out.println("#(input)#8");
+            case 8:
                 off=0;
                 break;
          }
@@ -154,7 +156,7 @@ class StudentList {
         if (total==0) {System.out.println("Yes");return false;}
         else {System.out.println("No");return true;}
     }
-    public void getItem(int no){
+    public Student getItem(int no){
         if (no>total)  System.out.println("No such student");
         else {
             System.out.println("Number:" + list[no - 1].getStudentNumber());
@@ -163,12 +165,12 @@ class StudentList {
             System.out.println("English:" + list[no - 1].getMarkForEnglish());
             System.out.println("Science:" + list[no - 1].getMarkForScience());
             System.out.printf("Ave:%.2f", list[no - 1].calculateAverage(list[no - 1].getMarkForMaths(), list[no - 1].getMarkForEnglish(), list[no - 1].getMarkForScience()));
-            System.out.println(); }
+            System.out.println(); }return list[1];
     }
-    public void getItem(String number){
+    public Student getItem(String number){
         int y=0;
         for (int i=0;i<total;i++ ){
-            if(list[i].getStudentNumber().equals(number)){
+            if(list[i].getStudentNumber().equals(number)){System.out.println("Student Info:");
                 System.out.println("Number:"+list[i].getStudentNumber());
                 System.out.println("Name:"+list[i].getStudentName());
                 System.out.println("Math:"+list[i].getMarkForMaths());
@@ -180,7 +182,7 @@ class StudentList {
             }
             if(y==0) System.out.println("No such student");
 
-        }
+        }return list[1];
 
     }
     int getTotal(){
