@@ -1,0 +1,148 @@
+import java.io.IOException;
+
+import java.util.Scanner;
+
+public class StudentNumberException {
+    public static void main (String[]args) throws IOException {
+     Scanner sc =new Scanner(System.in);
+     String[] one;
+     while (sc.hasNext()){
+           one=sc.nextLine().split(" ");
+           switch (one[0]){
+               case "0":
+                   SalaridEmployee x = new SalaridEmployee(one[1],one[2],one[3],Double.valueOf(one[4]));
+                   System.out.println(x);
+
+               case "1":
+                   HourlyEmployee y =new HourlyEmployee(one[1],one[2],one[3],Double.valueOf(one[4]),Integer.valueOf(one[5]));
+                   System.out.println(y);
+
+               case "2":CommisionEmployee z =new CommisionEmployee(one[1],one[2],one[3],Double.valueOf(one[4]),Double.valueOf(one[5]));
+                   System.out.println(z);
+
+               case "3":BasePlusCommisionEmployee v =new BasePlusCommisionEmployee(one[1],one[2],one[3],Double.valueOf(one[4]),Double.valueOf(one[5]),Double.valueOf(one[6]));
+                   System.out.println(v);
+           }
+     }
+    }
+
+}
+
+
+abstract class Employee{
+    private String firstName,lastName;
+    public String socialSecurityNumber;
+
+    public Employee(String first,String last,String number){
+        this.firstName=first;
+        this.lastName=last;
+        this.socialSecurityNumber=number;
+    };
+    public String getFirstName(){
+        return firstName;
+    }
+    public String getLastName(){
+        return lastName;
+    }
+    public String getSocialSecurityNumber(){
+        return socialSecurityNumber;
+    }
+public abstract double earning();
+
+}
+class SalaridEmployee extends Employee{
+    private double weeklySalary;
+    public SalaridEmployee(String first1,String last1,String number1,double s){
+        super(first1,last1,number1);
+          weeklySalary =s;
+    }
+    public void setWeeklySalary(double zhouxin){
+        weeklySalary=zhouxin;
+    }
+    public  double getWeeklySalary(){
+        return weeklySalary;
+    }
+    public double earning() {
+        return weeklySalary*4;
+    }
+    public String toString(){
+        return("firstName:"+getFirstName()+"; "+"lastName:"+getLastName()+"; "+"socialSecurityNumber:"+getSocialSecurityNumber()+"; "+"earning:"+String.format("%.2f",earning()));
+    }
+}
+class HourlyEmployee extends Employee{
+    private double wage;
+    private int  hour;
+    public HourlyEmployee(String first2,String last2,String number2,double wage2,int hour2){
+        super(first2,last2,number2);
+        wage=wage2;
+        hour=hour2;
+    }
+    public void setWage(double wage1){
+        wage=wage1;
+    }
+    public double getWage(){
+        return wage;
+    }
+    public void setHour(int hour1){
+        hour=hour1;
+    }
+    public int getHour() {
+        return hour;
+    }
+    public double earning() {
+        return wage*hour;
+
+    }
+    public String toString(){
+        return("firstName:"+getFirstName()+"; "+"lastName:"+getLastName()+"; "+"socialSecurityNumber:"+getSocialSecurityNumber()+"; "+"earning:"+String.format("%.2f",earning()));
+    }
+}
+class CommisionEmployee extends Employee{
+    private double grosssales,commissionrate;
+    public CommisionEmployee(String first2,String last2,String number2,double grosssales2,double commissionrate2){
+        super(first2,last2,number2);
+        grosssales=grosssales2;
+        commissionrate=commissionrate2;
+    }
+    public void setGrosssales(double grosssales1){
+        grosssales = grosssales1;
+    }
+    public void setCommissionrate(double commissionrate1){
+        commissionrate=commissionrate1;
+    }
+
+    public double getGrosssales() {
+        return grosssales;
+    }
+
+    public double getCommissionrate() {
+        return commissionrate;
+    }
+
+    public double earning() {
+        return grosssales*commissionrate;
+    }
+    public String toString(){
+        return("firstName:"+getFirstName()+"; "+"lastName:"+getLastName()+"; "+"socialSecurityNumber:"+getSocialSecurityNumber()+"; "+"earning:"+String.format("%.2f",earning()));
+    }
+}
+class BasePlusCommisionEmployee extends CommisionEmployee{
+   private double basesalary;
+    public BasePlusCommisionEmployee(String first2,String last2,String number2,double grosssales2,double commissionrate2,double basesalary1){
+        super(first2,last2,number2,grosssales2,commissionrate2);
+        basesalary=basesalary1;
+    }
+    public void setBasesalary(double basesalary2){
+        basesalary=basesalary2;
+    }
+    public double getBasesalary(){
+        return basesalary;
+    }
+    public double earning(){
+       return (this.getCommissionrate()*getGrosssales()+basesalary);
+
+    }
+    public String toString(){
+        return("firstName:" + getFirstName() + "; " + "lastName:" + getLastName() + "; " + "socialSecurityNumber:" + getSocialSecurityNumber() + "; " + "earning:" +String.format("%.2f",earning()));
+    }
+}
