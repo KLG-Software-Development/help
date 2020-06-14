@@ -1,0 +1,120 @@
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.image.ImageObserver;
+import java.text.AttributedCharacterIterator;
+import javax.swing.*;
+
+public class tuxing extends JFrame implements ActionListener {
+        JMenuBar caidan1;
+       private JMenuItem one = new JMenuItem("CommisionEmployee");
+      private JMenuItem two = new JMenuItem("BasePlusCommisionEmployee");
+     private JMenuItem three = new JMenuItem("AverageEarningSearch");
+    public tuxing(){
+        super("员工信息系统");
+        caidan1 =new JMenuBar();
+        add(caidan1);
+        JMenu menu1 =new JMenu("EmployeeInfoInput");
+        caidan1.add(menu1);
+        menu1.add(one);
+        menu1.add(two);
+        JMenu menu2 =new JMenu("Search");
+        caidan1.add(menu2);
+        menu2.add(three);
+        this.setJMenuBar(caidan1);
+        one.addActionListener(this);
+        two.addActionListener(this);
+        three.addActionListener(this);
+
+
+        setSize(300,300);
+        setVisible(true);
+
+    }
+    public void actionPerformed(ActionEvent e){
+        if(e.getSource()==one){
+
+        }
+        if(e.getSource()==two){
+
+        }
+        if(e.getSource()==three){
+
+        }
+    }
+    public static void main (String[]args){
+        JFrame.setDefaultLookAndFeelDecorated(true);
+        tuxing text= new tuxing();
+        text.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+}
+abstract class Employee{
+    private String firstName,lastName;
+    public String socialSecurityNumber;
+
+    public Employee(String first,String last,String number){
+        this.firstName=first;
+        this.lastName=last;
+        this.socialSecurityNumber=number;
+    };
+    public String getFirstName(){
+        return firstName;
+    }
+    public String getLastName(){
+        return lastName;
+    }
+    public String getSocialSecurityNumber(){
+        return socialSecurityNumber;
+    }
+    public abstract double earning();
+
+}
+class CommisionEmployee extends Employee {
+    private double grosssales,commissionrate;
+    public CommisionEmployee(String first2,String last2,String number2,double grosssales2,double commissionrate2){
+        super(first2,last2,number2);
+        grosssales=grosssales2;
+        commissionrate=commissionrate2;
+    }
+    public void setGrosssales(double grosssales1){
+        grosssales = grosssales1;
+    }
+    public void setCommissionrate(double commissionrate1){
+        commissionrate=commissionrate1;
+    }
+
+    public double getGrosssales() {
+        return grosssales;
+    }
+
+    public double getCommissionrate() {
+        return commissionrate;
+    }
+
+    public double earning() {
+        return grosssales*commissionrate;
+    }
+    public String toString(){
+        return("firstName:"+getFirstName()+"; "+"lastName:"+getLastName()+"; "+"socialSecurityNumber:"+getSocialSecurityNumber()+"; "+"earning:"+String.format("%.2f",earning()));
+    }
+}
+class BasePlusCommisionEmployee extends CommisionEmployee {
+    private double basesalary;
+    public BasePlusCommisionEmployee(String first2,String last2,String number2,double grosssales2,double commissionrate2,double basesalary1){
+        super(first2,last2,number2,grosssales2,commissionrate2);
+        basesalary=basesalary1;
+    }
+    public void setBasesalary(double basesalary2){
+        basesalary=basesalary2;
+    }
+    public double getBasesalary(){
+        return basesalary;
+    }
+    public double earning(){
+        return (this.getCommissionrate()*getGrosssales()+basesalary);
+
+    }
+    public String toString(){
+        return("firstName:" + getFirstName() + "; " + "lastName:" + getLastName() + "; " + "socialSecurityNumber:" + getSocialSecurityNumber() + "; " + "earning:" +String.format("%.2f",earning()));
+    }
+}
