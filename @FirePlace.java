@@ -152,7 +152,10 @@ class factory{
         }
      }
      public void printEmployees(){
-        System.out.println(employees);
+        for (Object obj : employees.values()) {
+            Employee emp = (Employee)obj;
+            System.out.println(emp.toString());
+        }
      }
 }
 
